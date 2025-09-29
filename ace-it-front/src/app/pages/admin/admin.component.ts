@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http'; // ← Ajouté
 import { UtilisateurService, Utilisateur } from '../../services/utilisateur/utilisateur.service';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule], // ← Ajouté
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.scss'
+  styleUrls: ['./admin.component.scss'] // petite typo corrigée
 })
 export class AdminComponent {
   utilisateurs: Utilisateur[] = [];
@@ -27,3 +28,4 @@ export class AdminComponent {
       });
   }
 }
+

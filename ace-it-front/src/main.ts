@@ -5,13 +5,15 @@ import { routes } from './app/app.routes';
 import { importProvidersFrom } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { provideHttpClient } from '@angular/common/http'; // ← Ajouté
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(routes),                  // routing
+    provideRouter(routes),
+    provideHttpClient(), // ← indispensable pour HttpClient
     importProvidersFrom(
-      BrowserAnimationsModule,             // animations nécessaires pour ngx-toastr
-      ToastrModule.forRoot()               // fournit ToastrService et ToastConfig
+      BrowserAnimationsModule,
+      ToastrModule.forRoot()
     )
   ]
 }).catch(err => console.error(err));
