@@ -4,16 +4,7 @@ import { UserComponent } from './pages/user/user.component';
 import { AdminComponent } from './pages/admin/admin.component';
 
 export const routes: Routes = [
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
-        path: '',
-        component: UserComponent
-    },
-    {
-        path: 'admin',
-        component: AdminComponent
-    }
+    { path: 'login', component: LoginComponent },
+    { path: '', component: UserComponent },
+    { path: 'admin', component: AdminComponent }
 ];

@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgFor } from '@angular/common';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,

@@ -1,1 +1,31 @@
-<p>login works!</p>
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="login-page">
+    <div class="left">
+        <p>Bienvenue sur</p>
+        <div class="logo_container">
+            <img src="assets/img/logo.svg" alt="logo">
+        </div>
+    </div>
+    <div class="right">
+        <h2>User Login</h2>
+        <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm.value)">
+            <input
+                placeholder="Email Id"
+                type="text"
+                name="email"
+                [(ngModel)]="user.email"
+            />
+            <input
+                placeholder="Password"
+                type="password"
+                name="password"
+                [(ngModel)]="user.password"
+            />
+            <div class="btn-div">
+                <button type="submit" [disabled]="!myForm.valid" class="login-btn">
+                Login
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
