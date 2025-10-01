@@ -5,15 +5,14 @@ import { UtilisateurService, Utilisateur } from '../../services/utilisateur/util
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-admin',
-  standalone: true,
-  imports: [CommonModule, 
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule], // ← Ajouté
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss'] // petite typo corrigée
+    selector: 'app-admin',
+    imports: [CommonModule,
+        // TODO: `HttpClientModule` should not be imported into a component directly.
+        // Please refactor the code to add `provideHttpClient()` call to the provider list in the
+        // application bootstrap logic and remove the `HttpClientModule` import from this component.
+        HttpClientModule], // ← Ajouté
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.scss'] // petite typo corrigée
 })
 export class AdminComponent {
   utilisateurs: Utilisateur[] = [];

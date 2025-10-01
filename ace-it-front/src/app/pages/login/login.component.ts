@@ -6,11 +6,10 @@ import { AuthService, LoginRequest } from "../../services/auth/auth.service";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-login",
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+    selector: "app-login",
+    imports: [CommonModule, FormsModule],
+    templateUrl: "./login.component.html",
+    styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent {
   user: LoginRequest = { email: "", motDePasse: "" };
