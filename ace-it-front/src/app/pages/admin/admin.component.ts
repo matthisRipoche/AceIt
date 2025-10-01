@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http'; // ← Ajouté
+import {} from '@angular/common/http'; // ← Ajouté
 import { UtilisateurService, Utilisateur } from '../../services/utilisateur/utilisateur.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, HttpClientModule], // ← Ajouté
+  imports: [CommonModule, 
+// TODO: `HttpClientModule` should not be imported into a component directly.
+// Please refactor the code to add `provideHttpClient()` call to the provider list in the
+// application bootstrap logic and remove the `HttpClientModule` import from this component.
+HttpClientModule], // ← Ajouté
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'] // petite typo corrigée
 })
