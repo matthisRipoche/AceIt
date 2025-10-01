@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http'; // ← Ajouté
 import { UtilisateurService, Utilisateur } from '../../services/utilisateur/utilisateur.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -13,7 +14,7 @@ import { UtilisateurService, Utilisateur } from '../../services/utilisateur/util
 export class AdminComponent {
   utilisateurs: Utilisateur[] = [];
 
-  constructor(private utilisateurService: UtilisateurService) {}
+  constructor(private utilisateurService: UtilisateurService, private router: Router) {}
 
   ngOnInit() {
     this.utilisateurService.getUtilisateurs()
@@ -26,6 +27,11 @@ export class AdminComponent {
           console.error('Erreur lors de la récupération des utilisateurs :', error);
         }
       });
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }
 

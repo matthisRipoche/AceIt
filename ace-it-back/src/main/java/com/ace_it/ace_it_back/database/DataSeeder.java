@@ -6,11 +6,18 @@ import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
 @Configuration
 public class DataSeeder {
+
+    private final PasswordEncoder passwordEncoder;
+
+    public DataSeeder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Bean
     CommandLineRunner initDatabase(UtilisateurRepository utilisateurRepository) {
@@ -21,7 +28,7 @@ public class DataSeeder {
                 Utilisateur utilisateur = new Utilisateur();
                 utilisateur.setName(faker.name().fullName());
                 utilisateur.setEmail(faker.internet().emailAddress());
-                utilisateur.setMotDePasse(faker.internet().password());
+                utilisateur.setMotDePasse(passwordEncoder.encode(faker.internet().password()));
                 utilisateur.setRole("USER");
                 utilisateur.setCreatedAt(LocalDateTime.now());
                 utilisateur.setUpdatedAt(LocalDateTime.now());
@@ -29,7 +36,27 @@ public class DataSeeder {
                 utilisateurRepository.save(utilisateur);
             }
 
-            System.out.println("✅ 10 utilisateurs générés en base !");
+            Utilisateur utilisateurUser = new Utilisateur();
+            utilisateurUser.setName("UserTest");
+            utilisateurUser.setEmail("user@user.com");
+            utilisateurUser.setMotDePasse(passwordEncoder.encode("user"));
+            utilisateurUser.setRole("USER");
+            utilisateurUser.setCreatedAt(LocalDateTime.now());
+            utilisateurUser.setUpdatedAt(LocalDateTime.now());
+
+            utilisateurRepository.save(utilisateurUser);
+
+            Utilisateur utilisateurAdmin = new Utilisateur();
+            utilisateurAdmin.setName("AdminTest");
+            utilisateurAdmin.setEmail("admin@admin.com");
+            utilisateurAdmin.setMotDePasse(passwordEncoder.encode("admin"));
+            utilisateurAdmin.setRole("ADMIN");
+            utilisateurAdmin.setCreatedAt(LocalDateTime.now());
+            utilisateurAdmin.setUpdatedAt(LocalDateTime.now());
+
+            utilisateurRepository.save(utilisateurAdmin);
+
+            System.out.println("✅ 12 utilisateurs générés en base !");
         };
     }
 }
