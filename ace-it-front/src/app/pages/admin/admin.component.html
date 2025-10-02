@@ -1,20 +1,22 @@
 <table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let utilisateur of utilisateurs">
-            <td>{{ utilisateur.id }}</td>
-            <td>{{ utilisateur.name }}</td>
-            <td>{{ utilisateur.email }}</td>
-            <td>{{ utilisateur.role }}</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (utilisateur of utilisateurs; track utilisateur) {
+      <tr>
+        <td>{{ utilisateur.id }}</td>
+        <td>{{ utilisateur.name }}</td>
+        <td>{{ utilisateur.email }}</td>
+        <td>{{ utilisateur.role }}</td>
+      </tr>
+    }
+  </tbody>
 </table>
 
 <button (click)="logout()" class="logout-btn">Déconnexion</button>

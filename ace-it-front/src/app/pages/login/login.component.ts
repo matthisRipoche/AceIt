@@ -1,15 +1,17 @@
 import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { CommonModule } from "@angular/common";
+import { CommonModule } from "@angular/common"; // Pour ngIf/ngFor
+
 import { ToastrService } from "ngx-toastr";
 import { AuthService, LoginRequest } from "../../services/auth/auth.service";
 import { Router } from "@angular/router";
 
 @Component({
-    selector: "app-login",
-    imports: [CommonModule, FormsModule],
-    templateUrl: "./login.component.html",
-    styleUrls: ["./login.component.scss"]
+  selector: "app-login",
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent {
   user: LoginRequest = { email: "", motDePasse: "" };
@@ -27,16 +29,13 @@ export class LoginComponent {
       next: (res: any) => {
         this.loading = false;
 
-        // Exemple : JWT + rôle côté front
-        const token = res.token || res; // dépend de ton API
-        const role = res.role || "USER"; // si tu renvoies le rôle dans le JWT, il faudra le décoder
+        const token = res.token || res;
+        const role = res.role || "USER";
 
-        // Stocke le token
         localStorage.setItem("token", token);
 
         this.toastr.success("Connexion réussie 🚀");
 
-        // Redirection selon le rôle
         if (role === "ADMIN") {
           this.router.navigate(["/admin"]);
         } else {
