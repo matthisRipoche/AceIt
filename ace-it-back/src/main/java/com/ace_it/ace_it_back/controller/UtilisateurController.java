@@ -18,4 +18,9 @@ public class UtilisateurController {
     public List<Utilisateur> getAllUtilisateurs() {
         return utilisateurRepository.findAll();
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteUtilisateur(@PathVariable Long id) {
+        utilisateurRepository.deleteById(id);
+    }
 }

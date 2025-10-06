@@ -7,6 +7,8 @@ export interface Utilisateur {
   name: string;
   email: string;
   role: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 @Injectable({
@@ -20,4 +22,8 @@ export class UtilisateurService {
   getUtilisateurs(): Observable<Utilisateur[]> {
     return this.http.get<Utilisateur[]>(this.apiUrl);
   }  
+
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }
