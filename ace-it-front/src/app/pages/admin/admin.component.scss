@@ -1,0 +1,9 @@
+.main-admin {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  .sidebar {
+    width: 300px;
+  }
+}
