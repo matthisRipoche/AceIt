@@ -19,6 +19,21 @@ public class UtilisateurController {
         return utilisateurRepository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Utilisateur getUtilisateurById(@PathVariable Long id) {
+        return utilisateurRepository.findById(id).orElse(null);
+    }
+
+    @PostMapping
+    public void createUtilisateur(@RequestBody Utilisateur utilisateur) {
+        utilisateurRepository.save(utilisateur);
+    }
+
+    @PutMapping("/{id}")
+    public void updateUtilisateur(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {
+        utilisateurRepository.save(utilisateur);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteUtilisateur(@PathVariable Long id) {
         utilisateurRepository.deleteById(id);

@@ -1,2 +1,9 @@
 <h2>Dashboard</h2>
 
+<div class="card text-center mb-3" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Total des utilisateurs</h5>
+      <p class="card-text">{{ totalUtilisateurs }}</p>
+      <button class="btn btn-primary" (click)="router.navigate(['/admin/users'])">Aller aux Utilisateurs</button>
+    </div>
+</div>

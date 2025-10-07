@@ -23,6 +23,18 @@ export class UtilisateurService {
     return this.http.get<Utilisateur[]>(this.apiUrl);
   }  
 
+  getUtilisateurById(id: number): Observable<Utilisateur> {
+    return this.http.get<Utilisateur>(`${this.apiUrl}/${id}`);
+  }
+
+  createUtilisateur(utilisateur: Utilisateur): Observable<void> {
+    return this.http.post<void>(this.apiUrl, utilisateur);
+  }
+
+  updateUtilisateur(utilisateur: Utilisateur): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${utilisateur.id}`, utilisateur);
+  }
+
   deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

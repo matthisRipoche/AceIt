@@ -15,6 +15,7 @@ import { UtilisateurService, Utilisateur } from '../../../services/utilisateur/u
 })
 export class AdminUsersComponent {
   utilisateurs: Utilisateur[] = [];
+  totalUtilisateurs = 0;
 
   constructor(
     private utilisateurService: UtilisateurService,
@@ -34,6 +35,8 @@ export class AdminUsersComponent {
           createdAt: new Date(u.createdAt), // transforme la chaîne en Date JS
           updatedAt: new Date(u.updatedAt)
         }));
+        this.totalUtilisateurs = this.utilisateurs.length; // 🧮 calcul initial
+        
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des utilisateurs :', error);
@@ -45,6 +48,8 @@ export class AdminUsersComponent {
     this.utilisateurService.deleteUser(user.id).subscribe({
       next: () => {
         this.utilisateurs = this.utilisateurs.filter(u => u.id !== user.id);
+
+        //faire le calcul
         this.toastr.success('Utilisateur supprimé ✅');
       },
       error: (err) => {
