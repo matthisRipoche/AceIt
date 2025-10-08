@@ -35,6 +35,7 @@ export class AdminUsersComponent {
           createdAt: new Date(u.createdAt), // transforme la chaîne en Date JS
           updatedAt: new Date(u.updatedAt)
         }));
+        
         this.totalUtilisateurs = this.utilisateurs.length; // 🧮 calcul initial
         
       },
@@ -57,5 +58,9 @@ export class AdminUsersComponent {
         this.toastr.error('Erreur lors de la suppression ❌');
       }
     });
+  }
+
+  viewUser(user: Utilisateur) {
+    this.router.navigate(['/admin/users/view', user.id]);
   }
 }

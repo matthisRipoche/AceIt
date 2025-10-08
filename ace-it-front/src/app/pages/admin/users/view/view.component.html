@@ -1,0 +1,55 @@
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0">
+      👤 Détails de l’utilisateur
+    </h2>
+    <button class="btn btn-outline-primary" (click)="router.navigate(['/admin/users'])">
+      ← Retour à la liste
+    </button>
+  </div>
+
+  <!-- Loader pendant le chargement -->
+  <div *ngIf="!utilisateur" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-3 text-muted">Chargement des informations...</p>
+  </div>
+
+  <!-- Contenu utilisateur -->
+  <div *ngIf="utilisateur" class="card shadow-lg border-0 rounded-4">
+    <div class="card-body">
+        <div class="d-flex align-items-center mb-4">
+            <img
+            src="https://ui-avatars.com/api/?name={{ utilisateur.name }}&background=0D8ABC&color=fff&size=100"
+            alt="Avatar de {{ utilisateur.name }}"
+            class="rounded-circle me-3"
+            width="100"
+            height="100"
+            />
+            <div>
+            <h3 class="card-title mb-0">{{ utilisateur.name }}</h3>
+            <p class="text-muted mb-0">{{ utilisateur.email }}</p>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row g-3">
+            <div class="col-md-3">
+                <h6 class="text-uppercase text-muted fw-semibold">Rôle</h6>
+                <p class="mb-0">{{ utilisateur.role || 'Non défini' }}</p>
+            </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <h6 class="text-uppercase text-muted fw-semibold">Date de création</h6>
+                    <p class="mb-0">{{ utilisateur.createdAt | date: 'longDate' }}</p>
+                </div>
+
+                <div class="col-md-3">
+                    <h6 class="text-uppercase text-muted fw-semibold">Dernière mise à jour</h6>
+                    <p class="mb-0">{{ utilisateur.updatedAt | date: 'longDate' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

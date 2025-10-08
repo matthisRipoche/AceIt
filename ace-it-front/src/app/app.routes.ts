@@ -5,6 +5,8 @@ import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.compo
 import { AdminUsersComponent } from './pages/admin/users/users.component';
 import { authGuard } from './services/auth/auth.guard';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { AdminUserViewComponent } from './pages/admin/users/view/view.component';
+import { AdminUserAddComponent } from './pages/admin/users/add/add.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -16,6 +18,8 @@ export const routes: Routes = [
             { path: 'users',
                 children: [
                     { path: '', component: AdminUsersComponent },
+                    { path: 'view/:id', component: AdminUserViewComponent},
+                    { path: 'add', component: AdminUserAddComponent},
                 ],
             },
         ], 

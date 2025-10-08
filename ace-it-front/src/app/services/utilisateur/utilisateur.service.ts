@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Utilisateur {
@@ -7,6 +7,7 @@ export interface Utilisateur {
   name: string;
   email: string;
   role: string;
+  password?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,23 +20,31 @@ export class UtilisateurService {
 
   constructor(private http: HttpClient) {}
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token'); // adapte selon ton système d’auth
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    });
+  }
+
   getUtilisateurs(): Observable<Utilisateur[]> {
-    return this.http.get<Utilisateur[]>(this.apiUrl);
-  }  
+    return this.http.get<Utilisateur[]>(this.apiUrl, { headers: this.getHeaders() });
+  }
 
   getUtilisateurById(id: number): Observable<Utilisateur> {
-    return this.http.get<Utilisateur>(`${this.apiUrl}/${id}`);
+    return this.http.get<Utilisateur>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 
   createUtilisateur(utilisateur: Utilisateur): Observable<void> {
-    return this.http.post<void>(this.apiUrl, utilisateur);
+    return this.http.post<void>(this.apiUrl, utilisateur, { headers: this.getHeaders() });
   }
 
   updateUtilisateur(utilisateur: Utilisateur): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${utilisateur.id}`, utilisateur);
+    return this.http.put<void>(`${this.apiUrl}/${utilisateur.id}`, utilisateur, { headers: this.getHeaders() });
   }
 
   deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 }
