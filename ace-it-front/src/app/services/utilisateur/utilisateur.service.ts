@@ -2,6 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface CreateUtilisateur {
+  name: string;
+  email: string;
+  role: string;
+  motDePasse: string;
+}
+
 export interface Utilisateur {
   id: number;
   name: string;
@@ -21,7 +28,7 @@ export class UtilisateurService {
   constructor(private http: HttpClient) {}
 
   private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token'); // adapte selon ton système d’auth
+    const token = localStorage.getItem('token');
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
@@ -36,7 +43,8 @@ export class UtilisateurService {
     return this.http.get<Utilisateur>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 
-  createUtilisateur(utilisateur: Utilisateur): Observable<void> {
+  // ici on adapte pour CreateUtilisateur
+  createUtilisateur(utilisateur: CreateUtilisateur): Observable<void> {
     return this.http.post<void>(this.apiUrl, utilisateur, { headers: this.getHeaders() });
   }
 
