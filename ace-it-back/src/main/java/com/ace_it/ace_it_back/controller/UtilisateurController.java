@@ -1,7 +1,7 @@
 package com.ace_it.ace_it_back.controller;
 
 import com.ace_it.ace_it_back.model.User;
-import com.ace_it.ace_it_back.repository.UtilisateurRepository;
+import com.ace_it.ace_it_back.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public class UtilisateurController {
 
     @Autowired
-    private UtilisateurRepository utilisateurRepository;
+    private UserRepository utilisateurRepository;
 
     @GetMapping
     public List<User> getAllUtilisateurs() {
