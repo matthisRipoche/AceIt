@@ -1,7 +1,6 @@
 package com.ace_it.ace_it_back.model;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,7 +21,7 @@ public class Profil {
     private Position position;
 
     @Column(precision = 4, scale = 1)
-    private BigDecimal height;
+    private Integer height;
 
     @Column(length = 255)
     private String profilePicturePath;
@@ -78,11 +77,11 @@ public class Profil {
         this.position = position;
     }
 
-    public BigDecimal getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(BigDecimal height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 

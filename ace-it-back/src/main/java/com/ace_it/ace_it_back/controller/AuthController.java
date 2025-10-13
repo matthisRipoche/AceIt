@@ -15,7 +15,7 @@ import javax.crypto.SecretKey;
 
 import com.ace_it.ace_it_back.dto.LoginRequest;
 import com.ace_it.ace_it_back.model.User;
-import com.ace_it.ace_it_back.repository.UtilisateurRepository;
+import com.ace_it.ace_it_back.repository.UserRepository;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -25,14 +25,14 @@ import io.jsonwebtoken.security.Keys;
 @CrossOrigin(origins = "*")
 public class AuthController {
 
-    private final UtilisateurRepository utilisateurRepository;
+    private final UserRepository utilisateurRepository;
     private final PasswordEncoder passwordEncoder;
 
     // 🔑 variables pour JWT
     private final String jwtSecret = "dfa207c4d7c713a4b2f146df237b1a7bf69b4f6a5300d7ddf15c6cbaf8fd88b0";
     private final long jwtExpirationMs = 86400000;
 
-    public AuthController(UtilisateurRepository utilisateurRepository, PasswordEncoder passwordEncoder) {
+    public AuthController(UserRepository utilisateurRepository, PasswordEncoder passwordEncoder) {
         this.utilisateurRepository = utilisateurRepository;
         this.passwordEncoder = passwordEncoder;
     }
