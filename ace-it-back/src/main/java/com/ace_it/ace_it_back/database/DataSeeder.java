@@ -1,19 +1,7 @@
 package com.ace_it.ace_it_back.database;
 
-import com.ace_it.ace_it_back.model.User;
-import com.ace_it.ace_it_back.model.Profil;
-import com.ace_it.ace_it_back.model.Match;
-import com.ace_it.ace_it_back.model.Statistic;
-import com.ace_it.ace_it_back.model.Team;
-import com.ace_it.ace_it_back.model.TypeStatistic;
-
-import com.ace_it.ace_it_back.repository.MatchRepository;
-import com.ace_it.ace_it_back.repository.ProfilRepository;
-import com.ace_it.ace_it_back.repository.StatisticRepository;
-import com.ace_it.ace_it_back.repository.TeamRepository;
-import com.ace_it.ace_it_back.repository.TypeStatisticRepository;
-import com.ace_it.ace_it_back.repository.UserRepository;
-
+import com.ace_it.ace_it_back.model.*;
+import com.ace_it.ace_it_back.repository.*;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class DataSeeder {
@@ -33,107 +23,121 @@ public class DataSeeder {
 
     @Bean
     CommandLineRunner initDatabase(
-            UserRepository utilisateurRepository,
+            UserRepository userRepository,
             ProfilRepository profilRepository,
             MatchRepository matchRepository,
             TypeStatisticRepository typeStatRepository,
             StatisticRepository statisticRepository,
             TeamRepository teamRepository) {
+
         return args -> {
             Faker faker = new Faker();
 
+            // --- USERS ---
+            List<User> users = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
-                User utilisateur = new User();
-                utilisateur.setFirstName(faker.name().firstName());
-                utilisateur.setLastName(faker.name().lastName());
-                utilisateur.setEmail(faker.internet().emailAddress());
-                utilisateur.setPassword(passwordEncoder.encode(faker.internet().password()));
-                utilisateur.setRole("USER");
-                utilisateur.setCreatedAt(LocalDateTime.now());
-                utilisateur.setUpdatedAt(LocalDateTime.now());
-
-                utilisateurRepository.save(utilisateur);
+                User user = new User();
+                user.setFirstName(faker.name().firstName());
+                user.setLastName(faker.name().lastName());
+                user.setEmail(faker.internet().emailAddress());
+                user.setPassword(passwordEncoder.encode(faker.internet().password()));
+                user.setRole("USER");
+                user.setCreatedAt(LocalDateTime.now());
+                user.setUpdatedAt(LocalDateTime.now());
+                userRepository.save(user);
+                users.add(user);
             }
 
-            User utilisateurUser = new User();
-            utilisateurUser.setFirstName("UserTest");
-            utilisateurUser.setLastName("UserTest");
-            utilisateurUser.setEmail("user@user.com");
-            utilisateurUser.setPassword(passwordEncoder.encode("user"));
-            utilisateurUser.setRole("USER");
-            utilisateurUser.setCreatedAt(LocalDateTime.now());
-            utilisateurUser.setUpdatedAt(LocalDateTime.now());
+            User userTest = new User();
+            userTest.setFirstName("UserTest");
+            userTest.setLastName("UserTest");
+            userTest.setEmail("user@user.com");
+            userTest.setPassword(passwordEncoder.encode("user"));
+            userTest.setRole("USER");
+            userTest.setCreatedAt(LocalDateTime.now());
+            userTest.setUpdatedAt(LocalDateTime.now());
+            userRepository.save(userTest);
+            users.add(userTest);
 
-            utilisateurRepository.save(utilisateurUser);
-
-            User utilisateurAdmin = new User();
-            utilisateurAdmin.setFirstName("AdminTest");
-            utilisateurAdmin.setLastName("AdminTest");
-            utilisateurAdmin.setEmail("admin@admin.com");
-            utilisateurAdmin.setPassword(passwordEncoder.encode("admin"));
-            utilisateurAdmin.setRole("ADMIN");
-            utilisateurAdmin.setCreatedAt(LocalDateTime.now());
-            utilisateurAdmin.setUpdatedAt(LocalDateTime.now());
-
-            utilisateurRepository.save(utilisateurAdmin);
+            User adminTest = new User();
+            adminTest.setFirstName("AdminTest");
+            adminTest.setLastName("AdminTest");
+            adminTest.setEmail("admin@admin.com");
+            adminTest.setPassword(passwordEncoder.encode("admin"));
+            adminTest.setRole("ADMIN");
+            adminTest.setCreatedAt(LocalDateTime.now());
+            adminTest.setUpdatedAt(LocalDateTime.now());
+            userRepository.save(adminTest);
+            users.add(adminTest);
 
             System.out.println("✅ 12 utilisateurs générés en base !");
 
+            // --- TEAMS & PROFILES ---
+            List<Team> teams = new ArrayList<>();
             for (int i = 0; i < 5; i++) {
                 Team team = new Team();
                 team.setName(faker.team().name());
                 team.setDivision(faker.options().option("SENIOR", "JUNIOR", "CADET"));
                 team.setTeamPicturePath(faker.avatar().image());
-                team.setCoach(utilisateurRepository.findById(1L).orElse(null)); // exemple
                 teamRepository.save(team);
 
-                // --- PROFILS pour chaque team ---
+                // Profils de la team
+                List<Profil> teamProfils = new ArrayList<>();
                 for (int j = 0; j < 6; j++) {
                     Profil profil = new Profil();
                     profil.setNumber(faker.number().numberBetween(1, 99));
-                    String randomPositionString = faker.options().option("LIBERO", "PASSEUR", "CENTRAL",
-                            "RECEP_ATTAQUANT", "POINTU");
-                    Profil.Position positionEnum = Profil.Position.valueOf(randomPositionString);
-                    profil.setPosition(positionEnum);
+                    profil.setPosition(Profil.Position.valueOf(
+                            faker.options().option("LIBERO", "PASSEUR", "CENTRAL", "RECEP_ATTAQUANT", "POINTU")));
                     profil.setHeight(faker.number().numberBetween(160, 210));
                     profil.setProfilePicturePath(faker.avatar().image());
                     profil.setTeam(team);
-                    profil.setUser(utilisateurRepository.findById(faker.number().numberBetween(1, 12L)).orElse(null));
+                    profil.setUser(users.get(faker.number().numberBetween(0, users.size())));
                     profilRepository.save(profil);
+                    teamProfils.add(profil);
                 }
+
+                // Coach
+                team.setCoach(teamProfils.get(faker.number().numberBetween(0, teamProfils.size())));
+                teamRepository.save(team);
+                teams.add(team);
             }
 
             // --- MATCHES ---
             for (int i = 0; i < 5; i++) {
                 Match match = new Match();
-                match.setTeamHome(teamRepository.findById(faker.number().numberBetween(1, 5L)).orElse(null));
+                match.setTeamHome(teams.get(faker.number().numberBetween(0, teams.size())));
                 match.setTeamAwayName(faker.team().name());
-                match.setDate(faker.date().future(30, java.util.concurrent.TimeUnit.DAYS).toInstant()
-                        .atZone(java.time.ZoneId.systemDefault()).toLocalDateTime());
+                match.setDate(faker.date().future(30, java.util.concurrent.TimeUnit.DAYS)
+                        .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime());
                 match.setLocation(faker.address().fullAddress());
                 matchRepository.save(match);
             }
 
             // --- TYPE_STATISTIC ---
             String[] types = { "Service", "Réception", "Attaque", "Bloc" };
+            List<TypeStatistic> typeStats = new ArrayList<>();
             for (String type : types) {
                 TypeStatistic ts = new TypeStatistic();
                 ts.setName(type);
                 ts.setDescription(type + " stats");
-                ts.setTeam(teamRepository.findById(1L).orElse(null));
+                ts.setTeam(teams.get(0)); // assign à la première team
                 typeStatRepository.save(ts);
+                typeStats.add(ts);
             }
 
             // --- STATISTICS ---
+            List<Profil> allProfils = profilRepository.findAll();
+            List<Match> allMatches = matchRepository.findAll();
             for (int i = 0; i < 20; i++) {
                 Statistic stat = new Statistic();
                 stat.setValue(faker.number().numberBetween(0, 10));
-                stat.setType(
-                        typeStatRepository.findById(faker.number().numberBetween(1, types.length + 1L)).orElse(null));
-                stat.setPlayer(profilRepository.findById(faker.number().numberBetween(1, 30L)).orElse(null));
-                stat.setMatch(matchRepository.findById(faker.number().numberBetween(1, 5L)).orElse(null));
+                stat.setType(typeStats.get(faker.number().numberBetween(0, typeStats.size())));
+                stat.setPlayer(allProfils.get(faker.number().numberBetween(0, allProfils.size())));
+                stat.setMatch(allMatches.get(faker.number().numberBetween(0, allMatches.size())));
                 statisticRepository.save(stat);
             }
+
+            System.out.println("✅ Seed terminé !");
         };
     }
 }

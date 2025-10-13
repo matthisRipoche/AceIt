@@ -1,9 +1,28 @@
 <h2>Dashboard</h2>
 
-<div class="card text-center mb-3" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Total des utilisateurs</h5>
-      <p class="card-text">{{ totalUtilisateurs }}</p>
-      <button class="btn btn-primary" (click)="router.navigate(['/admin/users'])">Aller aux Utilisateurs</button>
-    </div>
+<div class="d-flex justify-content-center align-items-center gap-5">
+  <div class="card text-center mb-3" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Total des utilisateurs</h5>
+        <p class="card-text">{{ totalUtilisateurs }}</p>
+        <button class="btn btn-primary" (click)="router.navigate(['/admin/users'])">Aller aux Utilisateurs</button>
+      </div>
+  </div>
+
+  <div class="card text-center mb-3" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Total des profils</h5>
+        <p class="card-text">{{ totalProfils }}</p>
+        <button class="btn btn-primary" (click)="router.navigate(['/admin/profils'])">Aller aux Profils</button>
+      </div>
+  </div>
+
+  <div class="card text-center mb-3" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Moyenne de taille</h5>
+        <p class="card-text">{{ moyenneTaille }}</p>
+        <button class="btn btn-primary" (click)="router.navigate(['/admin/profils'])">Aller aux Profils</button>
+      </div>
+  </div>
 </div>
+

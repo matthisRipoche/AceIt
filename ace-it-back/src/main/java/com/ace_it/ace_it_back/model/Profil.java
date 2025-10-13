@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "profil")
 public class Profil {
@@ -28,6 +31,7 @@ public class Profil {
 
     // ✅ Relations
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "teams_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_profil_team"))
     private Team team;
 

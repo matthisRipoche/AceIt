@@ -7,6 +7,7 @@ import { authGuard } from './services/auth/auth.guard';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { AdminUserViewComponent } from './pages/admin/users/view/view.component';
 import { AdminUserAddComponent } from './pages/admin/users/add/add.component';
+import { AdminProfilsComponent } from './pages/admin/profils/profils.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
                     { path: 'add', component: AdminUserAddComponent},
                 ],
             },
+            { path: 'profils', component: AdminProfilsComponent },
         ], 
     },
 ];

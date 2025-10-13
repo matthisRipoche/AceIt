@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "team")
 public class Team {
@@ -24,8 +26,9 @@ public class Team {
 
     // ✅ Relation avec l'entraîneur (coach)
     @ManyToOne
-    @JoinColumn(name = "coach_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_team_user"))
-    private User coach;
+    @JsonManagedReference
+    @JoinColumn(name = "coach_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_team_profil"))
+    private Profil coach;
 
     // ✅ Timestamps automatiques
     @CreationTimestamp
@@ -68,11 +71,11 @@ public class Team {
         this.teamPicturePath = teamPicturePath;
     }
 
-    public User getCoach() {
+    public Profil getCoach() {
         return coach;
     }
 
-    public void setCoach(User coach) {
+    public void setCoach(Profil coach) {
         this.coach = coach;
     }
 
