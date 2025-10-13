@@ -19,14 +19,14 @@
     <div class="card-body">
         <div class="d-flex align-items-center mb-4">
             <img
-            src="https://ui-avatars.com/api/?name={{ utilisateur.name }}&background=0D8ABC&color=fff&size=100"
-            alt="Avatar de {{ utilisateur.name }}"
+            src="https://ui-avatars.com/api/?name={{ utilisateur.firstName }} {{ utilisateur.lastName }}&background=0D8ABC&color=fff&size=100"
+            alt="Avatar de {{ utilisateur.firstName }} {{ utilisateur.lastName }}"
             class="rounded-circle me-3"
             width="100"
             height="100"
             />
             <div>
-            <h3 class="card-title mb-0">{{ utilisateur.name }}</h3>
+            <h3 class="card-title mb-0">{{ utilisateur.firstName }} {{ utilisateur.lastName }}</h3>
             <p class="text-muted mb-0">{{ utilisateur.email }}</p>
             </div>
         </div>

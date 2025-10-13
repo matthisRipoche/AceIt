@@ -1,11 +1,11 @@
 package com.ace_it.ace_it_back.repository;
 
-import com.ace_it.ace_it_back.model.Utilisateur;
+import com.ace_it.ace_it_back.model.User;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
-    Optional<Utilisateur> findByEmail(String email);
+public interface UtilisateurRepository extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
 }

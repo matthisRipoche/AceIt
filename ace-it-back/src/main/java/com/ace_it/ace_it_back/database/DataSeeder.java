@@ -1,6 +1,6 @@
 package com.ace_it.ace_it_back.database;
 
-import com.ace_it.ace_it_back.model.Utilisateur;
+import com.ace_it.ace_it_back.model.User;
 import com.ace_it.ace_it_back.repository.UtilisateurRepository;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
@@ -25,10 +25,11 @@ public class DataSeeder {
             Faker faker = new Faker();
 
             for (int i = 0; i < 10; i++) {
-                Utilisateur utilisateur = new Utilisateur();
-                utilisateur.setName(faker.name().fullName());
+                User utilisateur = new User();
+                utilisateur.setFirstName(faker.name().firstName());
+                utilisateur.setLastName(faker.name().lastName());
                 utilisateur.setEmail(faker.internet().emailAddress());
-                utilisateur.setMotDePasse(passwordEncoder.encode(faker.internet().password()));
+                utilisateur.setPassword(passwordEncoder.encode(faker.internet().password()));
                 utilisateur.setRole("USER");
                 utilisateur.setCreatedAt(LocalDateTime.now());
                 utilisateur.setUpdatedAt(LocalDateTime.now());
@@ -36,20 +37,22 @@ public class DataSeeder {
                 utilisateurRepository.save(utilisateur);
             }
 
-            Utilisateur utilisateurUser = new Utilisateur();
-            utilisateurUser.setName("UserTest");
+            User utilisateurUser = new User();
+            utilisateurUser.setFirstName("UserTest");
+            utilisateurUser.setLastName("UserTest");
             utilisateurUser.setEmail("user@user.com");
-            utilisateurUser.setMotDePasse(passwordEncoder.encode("user"));
+            utilisateurUser.setPassword(passwordEncoder.encode("user"));
             utilisateurUser.setRole("USER");
             utilisateurUser.setCreatedAt(LocalDateTime.now());
             utilisateurUser.setUpdatedAt(LocalDateTime.now());
 
             utilisateurRepository.save(utilisateurUser);
 
-            Utilisateur utilisateurAdmin = new Utilisateur();
-            utilisateurAdmin.setName("AdminTest");
+            User utilisateurAdmin = new User();
+            utilisateurAdmin.setFirstName("AdminTest");
+            utilisateurAdmin.setLastName("AdminTest");
             utilisateurAdmin.setEmail("admin@admin.com");
-            utilisateurAdmin.setMotDePasse(passwordEncoder.encode("admin"));
+            utilisateurAdmin.setPassword(passwordEncoder.encode("admin"));
             utilisateurAdmin.setRole("ADMIN");
             utilisateurAdmin.setCreatedAt(LocalDateTime.now());
             utilisateurAdmin.setUpdatedAt(LocalDateTime.now());

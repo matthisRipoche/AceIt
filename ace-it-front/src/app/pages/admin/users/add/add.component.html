@@ -8,122 +8,128 @@
   
     <!-- Formulaire -->
     <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body">
-            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-                <div class="row g-4">
-        
-                    <!-- Nom -->
-                    <div class="col-md-6">
-                        <label for="name" class="form-label fw-semibold">Nom complet</label>
-                        <input
-                            type="text"
-                            id="name"
-                            class="form-control form-control-lg"
-                            formControlName="name"
-                            placeholder="Ex: Jean Dupont"
-                            [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
-                        />
-                        @if (submitted && f['name'].errors) {
-                            <div class="invalid-feedback">
-                                Le nom est requis.
-                            </div>
-                        }
-                    </div>
-        
-                    <!-- Email -->
-                    <div class="col-md-6">
-                        <label for="email" class="form-label fw-semibold">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            class="form-control form-control-lg"
-                            formControlName="email"
-                            placeholder="Ex: jean.dupont@mail.com"
-                            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
-                        />
-                        @if (submitted && f['email'].errors) {
-                            <div class="invalid-feedback">
-                            Entrez un email valide.
-                            </div>
-                        }
-                    </div>
-        
-                    <!-- Rôle -->
-                    <div class="col-md-6">
-                        <label for="role" class="form-label fw-semibold">Rôle</label>
-                        <select
-                            id="role"
-                            class="form-select form-select-lg"
-                            formControlName="role"
-                            [ngClass]="{ 'is-invalid': submitted && f['role'].errors }"
-                        >
-                            <option value="">-- Sélectionnez un rôle --</option>
-                            <option value="ADMIN">Admin</option>
-                            <option value="USER">Utilisateur</option>
-                        </select>
-                        @if (submitted && f['role'].errors) {
-                            <div class="invalid-feedback">
-                                Le rôle est requis.
-                            </div>
-                        }
-                    </div>
-                </div>
-
-                <div class="row g-4">
-                    <!-- Mot de passe -->
-                    <div class="col-md-6">
-                        <label for="password" class="form-label fw-semibold">Mot de passe</label>
-                        <input
-                            type="password"
-                            id="password"
-                            class="form-control form-control-lg"
-                            formControlName="password"
-                            placeholder="••••••••"
-                            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
-                        />
-                        @if (submitted && f['password'].errors) {
-                            <div class="invalid-feedback">
-                                Le mot de passe est requis (min. 6 caractères).
-                            </div>
-                        }
-                    </div>
-
-                    <!-- Confirmation mot de passe -->
-                    <div class="col-md-6">
-                        <label for="passwordConfirm" class="form-label fw-semibold">Confirmation mot de passe</label>
-                        <input
-                            type="password"
-                            id="passwordConfirm"
-                            class="form-control form-control-lg"
-                            formControlName="passwordConfirm"
-                            placeholder="••••••••"
-                            [ngClass]="{ 'is-invalid': submitted && f['passwordConfirm'].errors }"
-                        />
-                        @if (submitted && f['passwordConfirm'].errors) {
-                            <div class="invalid-feedback">
-                                Les mots de passe ne correspondent pas.
-                            </div>
-                        }
-                    </div>
-                </div>
-        
-                <hr class="my-4" />
-        
-                <!-- Boutons -->
-                <div class="d-flex justify-content-end gap-3">
-                    <button
-                    type="button"
-                    class="btn btn-outline-secondary"
-                    (click)="router.navigate(['/admin/users'])"
-                    >
-                        Annuler
-                    </button>
-                    <button type="submit" class="btn btn-primary px-4">
-                        💾 Créer l’utilisateur
-                    </button>
-                </div>
-            </form>
-        </div>
+      <div class="card-body">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+          <div class="row g-4">
+  
+            <!-- Prénom -->
+            <div class="col-md-6">
+              <label for="firstName" class="form-label fw-semibold">Prénom</label>
+              <input
+                type="text"
+                id="firstName"
+                class="form-control form-control-lg"
+                formControlName="firstName"
+                placeholder="Ex: Jean"
+                [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }"
+              />
+              <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+                Le prénom est requis.
+              </div>
+            </div>
+  
+            <!-- Nom -->
+            <div class="col-md-6">
+              <label for="lastName" class="form-label fw-semibold">Nom</label>
+              <input
+                type="text"
+                id="lastName"
+                class="form-control form-control-lg"
+                formControlName="lastName"
+                placeholder="Ex: Dupont"
+                [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }"
+              />
+              <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+                Le nom est requis.
+              </div>
+            </div>
+  
+            <!-- Email -->
+            <div class="col-md-6">
+              <label for="email" class="form-label fw-semibold">Email</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control form-control-lg"
+                formControlName="email"
+                placeholder="Ex: jean.dupont@mail.com"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+              />
+              <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                Entrez un email valide.
+              </div>
+            </div>
+  
+            <!-- Rôle -->
+            <div class="col-md-6">
+              <label for="role" class="form-label fw-semibold">Rôle</label>
+              <select
+                id="role"
+                class="form-select form-select-lg"
+                formControlName="role"
+                [ngClass]="{ 'is-invalid': submitted && f['role'].errors }"
+              >
+                <option value="">-- Sélectionnez un rôle --</option>
+                <option value="ADMIN">Admin</option>
+                <option value="USER">Utilisateur</option>
+              </select>
+              <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
+                Le rôle est requis.
+              </div>
+            </div>
+          </div>
+  
+          <div class="row g-4 mt-4">
+            <!-- Mot de passe -->
+            <div class="col-md-6">
+              <label for="password" class="form-label fw-semibold">Mot de passe</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control form-control-lg"
+                formControlName="password"
+                placeholder="••••••••"
+                [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+              />
+              <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                Le mot de passe est requis (min. 6 caractères).
+              </div>
+            </div>
+  
+            <!-- Confirmation mot de passe -->
+            <div class="col-md-6">
+              <label for="passwordConfirm" class="form-label fw-semibold">Confirmation mot de passe</label>
+              <input
+                type="password"
+                id="passwordConfirm"
+                class="form-control form-control-lg"
+                formControlName="passwordConfirm"
+                placeholder="••••••••"
+                [ngClass]="{ 'is-invalid': submitted && f['passwordConfirm'].errors }"
+              />
+              <div *ngIf="submitted && f['passwordConfirm'].errors" class="invalid-feedback">
+                Les mots de passe ne correspondent pas.
+              </div>
+            </div>
+          </div>
+  
+          <hr class="my-4" />
+  
+          <!-- Boutons -->
+          <div class="d-flex justify-content-end gap-3">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="router.navigate(['/admin/users'])"
+            >
+              Annuler
+            </button>
+            <button type="submit" class="btn btn-primary px-4">
+              💾 Créer l’utilisateur
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-</div>
+  </div>
   

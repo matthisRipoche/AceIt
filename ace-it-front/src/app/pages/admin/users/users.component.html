@@ -13,6 +13,8 @@
           <thead class="table-light">
             <tr>
               <th>#</th>
+              <th>Photo</th>
+              <th>Prénom</th>
               <th>Nom</th>
               <th>Email</th>
               <th>Rôle</th>
@@ -24,7 +26,16 @@
           <tbody>
             <tr *ngFor="let user of utilisateurs; let i = index">
               <td>{{ i + 1 }}</td>
-              <td>{{ user.name }}</td>
+              <td>
+                @if (user.picturePath) {
+                  <img [src]="user.picturePath" alt="Photo de {{ user.firstName }} {{ user.lastName }}" class="rounded-circle" width="50" height="50">
+                }
+                @else {
+                  <img src="https://ui-avatars.com/api/?name={{ user.firstName }} {{ user.lastName }}&background=0D8ABC&color=fff&size=100" alt="Photo de {{ user.firstName }} {{ user.lastName }}" class="rounded-circle" width="50" height="50">
+                }
+              </td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
               <td>{{ user.email }}</td>
               <td>
                 <span class="badge text-bg-secondary">

@@ -1,6 +1,6 @@
 package com.ace_it.ace_it_back.controller;
 
-import com.ace_it.ace_it_back.model.Utilisateur;
+import com.ace_it.ace_it_back.model.User;
 import com.ace_it.ace_it_back.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,22 +15,22 @@ public class UtilisateurController {
     private UtilisateurRepository utilisateurRepository;
 
     @GetMapping
-    public List<Utilisateur> getAllUtilisateurs() {
+    public List<User> getAllUtilisateurs() {
         return utilisateurRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Utilisateur getUtilisateurById(@PathVariable Long id) {
+    public User getUtilisateurById(@PathVariable Long id) {
         return utilisateurRepository.findById(id).orElse(null);
     }
 
     @PostMapping
-    public void createUtilisateur(@RequestBody Utilisateur utilisateur) {
+    public void createUtilisateur(@RequestBody User utilisateur) {
         utilisateurRepository.save(utilisateur);
     }
 
     @PutMapping("/{id}")
-    public void updateUtilisateur(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {
+    public void updateUtilisateur(@PathVariable Long id, @RequestBody User utilisateur) {
         utilisateurRepository.save(utilisateur);
     }
 

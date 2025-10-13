@@ -2,7 +2,7 @@ package com.ace_it.ace_it_back.dto;
 
 public class LoginRequest {
     private String email;
-    private String motDePasse;
+    private String password;
 
     public LoginRequest() {
     }
@@ -15,11 +15,11 @@ public class LoginRequest {
         this.email = email;
     }
 
-    public String getMotDePasse() {
-        return motDePasse;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

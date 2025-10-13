@@ -6,20 +6,27 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "utilisateur")
-public class Utilisateur {
+@Table(name = "\"user\"")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(length = 100)
+    private String first_name;
+
+    @Column(length = 100)
+    private String last_name;
+
+    @Column(length = 255, nullable = true)
+    private String picture_path;
 
     @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
-    private String motDePasse;
+    private String password;
 
     @Column(nullable = false)
     private String role;
@@ -31,7 +38,7 @@ public class Utilisateur {
     private LocalDateTime updatedAt;
 
     // Constructeur vide requis par JPA
-    public Utilisateur() {
+    public User() {
     }
 
     // Getters & Setters
@@ -43,12 +50,28 @@ public class Utilisateur {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return first_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLastName() {
+        return last_name;
+    }
+
+    public void setLastName(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getPicturePath() {
+        return picture_path;
+    }
+
+    public void setPicturePath(String picture_path) {
+        this.picture_path = picture_path;
     }
 
     public String getEmail() {
@@ -59,12 +82,12 @@ public class Utilisateur {
         this.email = email;
     }
 
-    public String getMotDePasse() {
-        return motDePasse;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRole() {

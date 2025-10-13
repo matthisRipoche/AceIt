@@ -3,15 +3,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface CreateUtilisateur {
-  name: string;
+  firstName: string;
+  lastName: string;
+  picturePath: string;
   email: string;
   role: string;
-  motDePasse: string;
+  password: string;
 }
 
 export interface Utilisateur {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
+  picturePath: string;
   email: string;
   role: string;
   password?: string;

@@ -1,6 +1,7 @@
 package com.ace_it.ace_it_back.config;
 
 import com.ace_it.ace_it_back.security.JwtAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,6 +21,10 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    // ✅ injection depuis application.properties
+    @Value("${frontend.url:http://localhost:4200}")
+    private String frontendUrl;
+
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
@@ -27,21 +32,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // Activer CORS et désactiver CSRF
                 .cors().and()
                 .csrf().disable()
-
-                // Configurer les autorisations par endpoint
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/utilisateurs/**").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers(HttpMethod.POST, "/api/utilisateurs/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/utilisateurs/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/utilisateurs/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
-
-                // Ajouter le filtre JWT avant le filtre UsernamePasswordAuthenticationFilter
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-
-                // Désactiver formLogin et httpBasic (REST API)
                 .formLogin().disable()
                 .httpBasic().disable();
 
@@ -53,14 +54,15 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // Configuration CORS pour autoriser Angular
+    // ✅ CORS dynamique avec la variable frontendUrl
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList(frontendUrl)); // 👈 ici la variable injectée
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true); // utile pour les cookies/auth
+        configuration.setAllowCredentials(true);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

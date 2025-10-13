@@ -1,23 +1,25 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UtilisateurService } from '../../../../services/utilisateur/utilisateur.service';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 
 // interface spécifique pour la création
 export interface CreateUtilisateur {
-  name: string;
+  firstName: string;
+  lastName: string;
+  picturePath: string;
   email: string;
   role: string;
-  motDePasse: string;
+  password: string;
 }
 
 @Component({
   selector: 'app-add',
+  standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss']  // petite faute corrigée : styleUrls au pluriel
+  styleUrls: ['./add.component.scss']
 })
 export class AdminUserAddComponent {
   userForm: FormGroup;
@@ -26,10 +28,12 @@ export class AdminUserAddComponent {
   constructor(
     private fb: FormBuilder,
     public router: Router,
-    private userService: UtilisateurService,
+    private userService: UtilisateurService
   ) {
     this.userForm = this.fb.group({
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      picturePath: [''],
       email: ['', [Validators.required, Validators.email]],
       role: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -44,25 +48,26 @@ export class AdminUserAddComponent {
   onSubmit() {
     this.submitted = true;
 
-    // stop si le formulaire est invalide
+    console.log(this.userForm);
+
     if (this.userForm.invalid) return;
 
-    const { name, email, role, password, passwordConfirm } = this.userForm.value;
 
-    // validation du password confirm
+    const { firstName, lastName, picturePath, email, role, password, passwordConfirm } = this.userForm.value;
+
     if (password !== passwordConfirm) {
       this.userForm.get('passwordConfirm')?.setErrors({ notMatch: true });
       return;
     }
 
-    // préparer le payload pour le back
-    const payload: CreateUtilisateur = { name, email, role, motDePasse: password };
-    
+    const payload: CreateUtilisateur = { firstName, lastName, picturePath, email, role, password };
+
     this.userService.createUtilisateur(payload).subscribe({
-      next: () => this.router.navigate(['/admin/users']),
+      next: () => {
+        console.log('✅ Utilisateur créé avec succès :', payload);
+        this.router.navigate(['/admin/users']);
+      },
       error: (err) => console.error('❌ Erreur création utilisateur :', err)
     });
-
-    console.log('✅ Nouvel utilisateur envoyé au back :', payload);
   }
 }

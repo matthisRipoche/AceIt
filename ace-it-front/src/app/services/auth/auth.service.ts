@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 export interface LoginRequest {
   email: string;
-  motDePasse: string;
+  password: string;
 }
 
 @Injectable({

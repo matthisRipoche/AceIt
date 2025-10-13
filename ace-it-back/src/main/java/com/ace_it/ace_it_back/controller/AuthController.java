@@ -14,7 +14,7 @@ import java.util.Map;
 import javax.crypto.SecretKey;
 
 import com.ace_it.ace_it_back.dto.LoginRequest;
-import com.ace_it.ace_it_back.model.Utilisateur;
+import com.ace_it.ace_it_back.model.User;
 import com.ace_it.ace_it_back.repository.UtilisateurRepository;
 
 import io.jsonwebtoken.Jwts;
@@ -40,10 +40,10 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         // Chercher l’utilisateur par email
-        Utilisateur user = utilisateurRepository.findByEmail(loginRequest.getEmail())
+        User user = utilisateurRepository.findByEmail(loginRequest.getEmail())
                 .orElse(null);
 
-        if (user == null || !passwordEncoder.matches(loginRequest.getMotDePasse(), user.getMotDePasse())) {
+        if (user == null || !passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             return ResponseEntity.status(401).body("❌ Email ou mot de passe incorrect");
         }
 

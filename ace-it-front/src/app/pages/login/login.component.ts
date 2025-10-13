@@ -14,7 +14,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent {
-  user: LoginRequest = { email: "", motDePasse: "" };
+  user: LoginRequest = { email: "", password: "" };
   loading = false;
 
   constructor(
