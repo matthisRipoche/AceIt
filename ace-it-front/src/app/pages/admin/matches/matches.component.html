@@ -1,0 +1,57 @@
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold">👥 Gestion des Matchs</h2>
+      <button class="btn btn-primary" (click)="router.navigate(['/admin/matches/add'])">
+        <i class="bi bi-person-plus"></i> Ajouter un match
+      </button>
+    </div>
+  
+    <!-- Table des utilisateurs -->
+    <div class="card shadow-sm">
+      <div class="card-body p-0">
+        <table class="table table-hover mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Local</th>
+              <th>Visiteur</th>
+              <th>Date</th>
+              <th>Lieu</th>
+              <th>Date d'ajout</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            <tr *ngFor="let match of matches; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ match.teamHome.name }}</td>
+              <td>{{ match.teamAwayName }}</td>
+              <td>{{ match.date }}</td>
+              <td>{{ match.location }}</td>
+              <td>{{ match.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td class="text-end">
+                <button class="btn btn-sm btn-primary me-2" (click)="viewMatch(match)">
+                  <i class="bi bi-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-primary me-2">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="deleteMatch(match)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+  
+            <!-- Cas aucun match -->
+            <tr *ngIf="matches.length === 0">
+              <td colspan="6" class="text-center py-4 text-muted">
+                Aucun match trouvé 😔
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

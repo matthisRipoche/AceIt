@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+
+// PagesComponents
 import { LoginComponent } from './pages/login/login.component';
 import { UserComponent } from './pages/user/user.component';
 import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.component';
@@ -9,6 +11,7 @@ import { AdminUserViewComponent } from './pages/admin/users/view/view.component'
 import { AdminUserAddComponent } from './pages/admin/users/add/add.component';
 import { AdminProfilsComponent } from './pages/admin/profils/profils.component';
 import { AdminTeamsComponent } from './pages/admin/teams/teams.component';
+import { AdminMatchesComponent } from './pages/admin/matches/matches.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -26,6 +29,7 @@ export const routes: Routes = [
             },
             { path: 'profils', component: AdminProfilsComponent },
             { path: 'teams', component: AdminTeamsComponent },
+            { path: 'matches', component: AdminMatchesComponent },
         ], 
     },
 ];
