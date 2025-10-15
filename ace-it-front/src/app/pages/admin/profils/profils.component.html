@@ -19,6 +19,7 @@
               <th>Numéro</th>
               <th>Position</th>
               <th>Hauteur</th>
+              <th>Equipe</th>
               <th>Date d’inscription</th>
               <th class="text-end">Actions</th>
             </tr>
@@ -40,6 +41,7 @@
               <td>{{ profil.number }}</td>
               <td>{{ profil.position }}</td>
               <td>{{ profil.height }}</td>
+              <td>{{ profil.team.name }}</td>
               <td>{{ profil.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
               <td class="text-end">
                 <button class="btn btn-sm btn-primary me-2" (click)="viewUser(profil)">
