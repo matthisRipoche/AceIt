@@ -80,26 +80,33 @@ public class DataSeeder {
                 team.setDivision(faker.options().option("SENIOR", "JUNIOR", "CADET"));
                 team.setTeamPicturePath(faker.avatar().image());
                 teamRepository.save(team);
+                teams.add(team); // ✅ indispensable !
 
                 // Profils de la team
                 List<Profil> teamProfils = new ArrayList<>();
+
+                // 6 joueurs
                 for (int j = 0; j < 6; j++) {
                     Profil profil = new Profil();
                     profil.setNumber(faker.number().numberBetween(1, 99));
                     profil.setPosition(Profil.Position.valueOf(
                             faker.options().option("LIBERO", "PASSEUR", "CENTRAL", "RECEP_ATTAQUANT", "POINTU")));
                     profil.setHeight(faker.number().numberBetween(160, 210));
-                    profil.setProfilePicturePath(faker.avatar().image());
                     profil.setTeam(team);
                     profil.setUser(users.get(faker.number().numberBetween(0, users.size())));
                     profilRepository.save(profil);
                     teamProfils.add(profil);
                 }
 
-                // Coach
-                team.setCoach(teamProfils.get(faker.number().numberBetween(0, teamProfils.size())));
-                teamRepository.save(team);
-                teams.add(team);
+                // 1 coach
+                Profil coach = new Profil();
+                coach.setNumber(faker.number().numberBetween(1, 99));
+                coach.setIsCoach(true);
+                coach.setHeight(faker.number().numberBetween(160, 210));
+                coach.setTeam(team);
+                coach.setUser(users.get(faker.number().numberBetween(0, users.size())));
+                profilRepository.save(coach);
+                teamProfils.add(coach);
             }
 
             // --- MATCHES ---

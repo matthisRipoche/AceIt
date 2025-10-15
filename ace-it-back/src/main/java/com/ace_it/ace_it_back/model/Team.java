@@ -24,12 +24,6 @@ public class Team {
     @Column(length = 255)
     private String teamPicturePath;
 
-    // ✅ Relation avec l'entraîneur (coach)
-    @ManyToOne
-    @JsonManagedReference
-    @JoinColumn(name = "coach_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_team_profil"))
-    private Profil coach;
-
     // ✅ Timestamps automatiques
     @CreationTimestamp
     @Column(updatable = false)
@@ -69,14 +63,6 @@ public class Team {
 
     public void setTeamPicturePath(String teamPicturePath) {
         this.teamPicturePath = teamPicturePath;
-    }
-
-    public Profil getCoach() {
-        return coach;
-    }
-
-    public void setCoach(Profil coach) {
-        this.coach = coach;
     }
 
     public LocalDateTime getCreatedAt() {

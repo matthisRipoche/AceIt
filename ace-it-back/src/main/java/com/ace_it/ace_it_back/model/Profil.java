@@ -26,8 +26,8 @@ public class Profil {
     @Column(precision = 4, scale = 1)
     private Integer height;
 
-    @Column(length = 255)
-    private String profilePicturePath;
+    @Column
+    private Boolean isCoach;
 
     // ✅ Relations
     @ManyToOne
@@ -89,12 +89,12 @@ public class Profil {
         this.height = height;
     }
 
-    public String getProfilePicturePath() {
-        return profilePicturePath;
+    public Boolean getIsCoach() {
+        return isCoach;
     }
 
-    public void setProfilePicturePath(String profilePicturePath) {
-        this.profilePicturePath = profilePicturePath;
+    public void setIsCoach(Boolean isCoach) {
+        this.isCoach = isCoach;
     }
 
     public Team getTeam() {
