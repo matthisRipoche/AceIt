@@ -17,6 +17,7 @@ export interface Team {
   division: string;
   teamPicturePath?: string | null;
   coach: Profil;
+  players: Profil[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -70,5 +71,9 @@ export class TeamService {
   // --- DELETE ---
   deleteTeam(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
+  }
+
+  getProfilsByTeamId(id: number): Observable<Profil[]> {
+    return this.http.get<Profil[]>(`${this.apiUrl}/${id}/profils`, { headers: this.getHeaders() });
   }
 }
