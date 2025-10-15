@@ -8,6 +8,7 @@ import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.compone
 import { AdminUserViewComponent } from './pages/admin/users/view/view.component';
 import { AdminUserAddComponent } from './pages/admin/users/add/add.component';
 import { AdminProfilsComponent } from './pages/admin/profils/profils.component';
+import { AdminTeamsComponent } from './pages/admin/teams/teams.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -24,6 +25,7 @@ export const routes: Routes = [
                 ],
             },
             { path: 'profils', component: AdminProfilsComponent },
+            { path: 'teams', component: AdminTeamsComponent },
         ], 
     },
 ];

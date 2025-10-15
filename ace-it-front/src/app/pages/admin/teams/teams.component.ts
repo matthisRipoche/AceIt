@@ -4,21 +4,21 @@ import { HttpClientModule } from '@angular/common/http'; // ← Import correct
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { ProfilService, Profil } from '../../../services/profil/profil.service';
+import { TeamService, Team } from '../../../services/team/team.service';
 
 @Component({
-  selector: 'app-admin-users',
+  selector: 'app-admin-teams',
   standalone: true,
   imports: [CommonModule, HttpClientModule],
-  templateUrl: './profils.component.html',
-  styleUrls: ['./profils.component.scss']
+  templateUrl: './teams.component.html',
+  styleUrls: ['./teams.component.scss']
 })
-export class AdminProfilsComponent {
-  utilisateurs: Profil[] = [];
-  totalUtilisateurs = 0;
+export class AdminTeamsComponent {
+  teams: Team[] = [];
+  totalTeams = 0;
 
   constructor(
-    private profilService: ProfilService,
+    private teamService: TeamService,
     public router: Router,
     private toastr: ToastrService
   ) {}
@@ -27,18 +27,18 @@ export class AdminProfilsComponent {
    * A l'initialisation de la page on va chercher les profils
    */
   ngOnInit() {
-    this.profilService.getProfils().subscribe({
+    this.teamService.getTeams().subscribe({
       next: (data) => {
         console.log('Données récupérées depuis l’API :', data);
-        this.utilisateurs = data;
+        this.teams = data;
 
-        this.utilisateurs = data.map(u => ({
+        this.teams = data.map(u => ({
           ...u,
           createdAt: new Date(u.createdAt),
           updatedAt: new Date(u.updatedAt)
         }));
         
-        this.totalUtilisateurs = this.utilisateurs.length;
+        this.totalTeams = this.teams.length;
         
       },
       error: (error) => {
@@ -49,12 +49,12 @@ export class AdminProfilsComponent {
 
   /**
    * Supprimer un profil
-   * @param profil 
+   * @param team 
    */
-  deleteUser(profil: Profil) {
-    this.profilService.deleteProfil(profil.id).subscribe({
+  deleteUser(team: Team) {
+    this.teamService.deleteTeam(team.id).subscribe({
       next: () => {
-        this.utilisateurs = this.utilisateurs.filter(u => u.id !== profil.id);
+        this.teams = this.teams.filter(u => u.id !== team.id);
         this.toastr.success('Profil supprimé ✅');
       },
       error: (err) => {
@@ -66,9 +66,9 @@ export class AdminProfilsComponent {
 
   /**
    * Voir un profil
-   * @param profil 
+   * @param team 
    */
-  viewProfil(profil: Profil) {
-    this.router.navigate(['/admin/users/view', profil.id]);
+  viewProfil(team: Team) {
+    this.router.navigate(['/admin/teams/view', team.id]);
   }
 }

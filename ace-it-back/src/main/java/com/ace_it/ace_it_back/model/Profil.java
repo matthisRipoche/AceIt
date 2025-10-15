@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "profil")
 public class Profil {
@@ -23,12 +25,11 @@ public class Profil {
     @Column(precision = 4, scale = 1)
     private Integer height;
 
-    @Column
-    private Boolean isCoach;
-
     // ✅ Relations
     @ManyToOne
+
     @JoinColumn(name = "teams_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_profil_team"))
+    @JsonIgnoreProperties("coach")
     private Team team;
 
     @ManyToOne
@@ -83,14 +84,6 @@ public class Profil {
 
     public void setHeight(Integer height) {
         this.height = height;
-    }
-
-    public Boolean getIsCoach() {
-        return isCoach;
-    }
-
-    public void setIsCoach(Boolean isCoach) {
-        this.isCoach = isCoach;
     }
 
     public Team getTeam() {

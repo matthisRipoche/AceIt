@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "team")
@@ -23,6 +23,11 @@ public class Team {
 
     @Column(length = 255)
     private String teamPicturePath;
+
+    @OneToOne
+    @JoinColumn(name = "coach_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_team_coach"))
+    @JsonIgnoreProperties("team")
+    private Profil coach;
 
     // ✅ Timestamps automatiques
     @CreationTimestamp
@@ -63,6 +68,14 @@ public class Team {
 
     public void setTeamPicturePath(String teamPicturePath) {
         this.teamPicturePath = teamPicturePath;
+    }
+
+    public Profil getCoach() {
+        return coach;
+    }
+
+    public void setCoach(Profil coach) {
+        this.coach = coach;
     }
 
     public LocalDateTime getCreatedAt() {

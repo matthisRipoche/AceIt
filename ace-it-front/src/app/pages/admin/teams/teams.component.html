@@ -14,50 +14,39 @@
             <tr>
               <th>#</th>
               <th>Photo</th>
-              <th>Prénom</th>
               <th>Nom</th>
-              <th>Numéro</th>
-              <th>Position</th>
-              <th>Hauteur</th>
-              <th>Equipe</th>
+              <th>Division</th>
+              <th>Coach</th>
               <th>Date d’inscription</th>
               <th class="text-end">Actions</th>
             </tr>
           </thead>
   
           <tbody>
-            <tr *ngFor="let profil of utilisateurs; let i = index">
+            <tr *ngFor="let team of teams; let i = index">
               <td>{{ i + 1 }}</td>
               <td>
-                @if (profil.profilePicturePath) {
-                  <img [src]="profil.profilePicturePath" alt="Photo de {{ profil.user.firstName }} {{ profil.user.lastName }}" class="rounded-circle" width="50" height="50">
-                }
-                @else {
-                  <img src="https://ui-avatars.com/api/?name={{ profil.user.firstName }} {{ profil.user.lastName }}&background=0D8ABC&color=fff&size=100" alt="Photo de {{ profil.user.firstName }} {{ profil.user.lastName }}" class="rounded-circle" width="50" height="50">
-                }
+                  <img src="https://ui-avatars.com/api/?name={{ team.name }}&background=0D8ABC&color=fff&size=100" alt="Photo de {{ team.name }}" class="rounded-circle" width="50" height="50">
               </td>
-              <td>{{ profil.user.firstName }}</td>
-              <td>{{ profil.user.lastName }}</td>
-              <td>{{ profil.number }}</td>
-              <td>{{ profil.position }}</td>
-              <td>{{ profil.height }}</td>
-              <td>{{ profil.team.name }}</td>
-              <td>{{ profil.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ team.name }}</td>
+              <td>{{ team.division }}</td>
+              <td>{{ team.coach.user.firstName }} {{ team.coach.user.lastName }}</td>
+              <td>{{ team.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
               <td class="text-end">
-                <button class="btn btn-sm btn-primary me-2" (click)="viewProfil(profil)">
+                <button class="btn btn-sm btn-primary me-2" (click)="viewProfil(team)">
                   <i class="bi bi-eye"></i>
                 </button>
                 <button class="btn btn-sm btn-primary me-2">
                   <i class="bi bi-pencil"></i>
                 </button>
-                <button class="btn btn-sm btn-danger" (click)="deleteUser(profil)">
+                <button class="btn btn-sm btn-danger" (click)="deleteUser(team)">
                   <i class="bi bi-trash"></i>
                 </button>
               </td>
             </tr>
   
             <!-- Cas aucun utilisateur -->
-            <tr *ngIf="utilisateurs.length === 0">
+            <tr *ngIf="teams.length === 0">
               <td colspan="6" class="text-center py-4 text-muted">
                 Aucun utilisateur trouvé 😔
               </td>

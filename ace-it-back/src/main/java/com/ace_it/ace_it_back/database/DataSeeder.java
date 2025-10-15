@@ -98,15 +98,16 @@ public class DataSeeder {
                     teamProfils.add(profil);
                 }
 
-                // 1 coach
                 Profil coach = new Profil();
                 coach.setNumber(faker.number().numberBetween(1, 99));
-                coach.setIsCoach(true);
                 coach.setHeight(faker.number().numberBetween(160, 210));
                 coach.setTeam(team);
                 coach.setUser(users.get(faker.number().numberBetween(0, users.size())));
                 profilRepository.save(coach);
-                teamProfils.add(coach);
+
+                // 👇 Lie le coach à la team
+                team.setCoach(coach);
+                teamRepository.save(team);
             }
 
             // --- MATCHES ---
