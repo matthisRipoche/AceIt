@@ -74,6 +74,6 @@ export class TeamService {
   }
 
   getProfilsByTeamId(id: number): Observable<Profil[]> {
-    return this.http.get<Profil[]>(`${this.apiUrl}/${id}/profils`, { headers: this.getHeaders() });
+    return this.http.get<Profil[]>(`${this.apiUrl}/${id}/players`, { headers: this.getHeaders() });
   }
 }
