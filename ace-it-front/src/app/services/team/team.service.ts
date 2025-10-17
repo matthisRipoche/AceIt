@@ -18,9 +18,19 @@ export interface Team {
   teamPicturePath?: string | null;
   coach: Profil;
   players: Profil[];
+  ListTypeStatistics: TypeStatistic[];
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface TypeStatistic {
+  id: number;
+  name: string;
+  teamId: Team;
+  description: string;
+  createdAt: Date;
+  updatedAt: Date;
+} 
 
 export interface Profil {
   id: number;
@@ -75,5 +85,9 @@ export class TeamService {
 
   getProfilsByTeamId(id: number): Observable<Profil[]> {
     return this.http.get<Profil[]>(`${this.apiUrl}/${id}/players`, { headers: this.getHeaders() });
+  }
+
+  getTypeStatisticsByTeamId(id: number): Observable<TypeStatistic[]> {
+    return this.http.get<TypeStatistic[]>(`${this.apiUrl}/${id}/type-statistics`, { headers: this.getHeaders() });
   }
 }

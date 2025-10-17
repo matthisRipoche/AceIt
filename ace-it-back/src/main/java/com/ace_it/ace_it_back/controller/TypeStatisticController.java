@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +13,7 @@ import com.ace_it.ace_it_back.model.TypeStatistic;
 import com.ace_it.ace_it_back.repository.TypeStatisticRepository;
 
 @RestController
-@RequestMapping("/api/types_statistic")
+@RequestMapping("/api/types_statistics")
 @CrossOrigin(origins = "*")
 public class TypeStatisticController {
 
@@ -22,6 +23,11 @@ public class TypeStatisticController {
     @GetMapping
     public List<TypeStatistic> getAllTypeStatistics() {
         return typeStatisticRepository.findAll();
+    }
+
+    @GetMapping("/team/{id}")
+    public List<TypeStatistic> getTypeStatisticsByTeamId(@PathVariable Long id) {
+        return typeStatisticRepository.findByTeamId(id);
     }
 
 }

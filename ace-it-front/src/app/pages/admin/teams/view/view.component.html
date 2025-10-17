@@ -70,13 +70,33 @@
             <div class="card shadow-lg border-0 rounded-4 mb-4 h-100">
                 <div class="card-body">
                     <h5 class="card-title">Types de Statistiques</h5>
-                    <p>Tu peux mettre ce que tu veux ici 😎</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let typeStatistic of team.ListTypeStatistics; let i = index">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ typeStatistic.name }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary me-2">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" (click)="typeStatisticService.deleteTypeStatistic(typeStatistic.id)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-      
-
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold mb-0">
